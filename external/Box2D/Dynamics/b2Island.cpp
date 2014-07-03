@@ -186,6 +186,8 @@ void b2Island::Solve(b2Profile* profile, const b2TimeStep& step, const b2Vec2& g
 
 	float32 h = step.dt;
 
+    b2Vec2 applied_gravity;
+    
 	// Integrate velocities and apply damping. Initialize the body state.
 	for (int32 i = 0; i < m_bodyCount; ++i)
 	{
@@ -202,8 +204,17 @@ void b2Island::Solve(b2Profile* profile, const b2TimeStep& step, const b2Vec2& g
 
 		if (b->m_type == b2_dynamicBody)
 		{
+            if (b->m_blUseOwnGravity) {
+                applied_gravity = b->m_b2OwnGravity;
+            }
+            else
+            {
+                applied_gravity = gravity;
+            }
 			// Integrate velocities.
-			v += h * (b->m_gravityScale * gravity + b->m_invMass * b->m_force);
+//			v += h * (b->m_gravityScale * gravity + b->m_invMass * b->m_force);
+			v.x += h * (b->m_gravityScale * applied_gravity.x + b->m_invMass * b->m_force.x);
+            v.y += h * (b->m_gravityScale * applied_gravity.y + b->m_invMass * b->m_force.y);
 			w += h * b->m_invI * b->m_torque;
 
 			// Apply damping.

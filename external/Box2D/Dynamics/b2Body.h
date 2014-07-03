@@ -383,6 +383,14 @@ public:
 	/// Dump this body to a log file
 	void Dump();
 
+    void SetUseOwnGravity(bool flag);
+    
+	/// Get the active state of the body.
+	bool IsUseOwnGravity() const;
+    
+    void SetOwnGravity(b2Vec2& pOwnGravity);
+    b2Vec2 GetOwnGravity();
+
 private:
 
 	friend class b2World;
@@ -464,6 +472,9 @@ private:
 	float32 m_sleepTime;
 
 	void* m_userData;
+    //////////////////////
+    b2Vec2 m_b2OwnGravity;
+    bool  m_blUseOwnGravity;
 };
 
 inline b2BodyType b2Body::GetType() const

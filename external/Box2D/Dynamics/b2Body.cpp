@@ -547,3 +547,24 @@ void b2Body::Dump()
 	}
 	b2Log("}\n");
 }
+
+void b2Body::SetUseOwnGravity(bool flag)
+{
+    this->m_blUseOwnGravity = flag;
+}
+
+/// Get the active state of the body.
+bool b2Body::IsUseOwnGravity() const
+{
+    return this->m_blUseOwnGravity;
+}
+
+void b2Body::SetOwnGravity(b2Vec2& pOwnGravity)
+{
+    this->m_b2OwnGravity = pOwnGravity;
+}
+
+b2Vec2 b2Body::GetOwnGravity()
+{
+    return this->m_b2OwnGravity;
+}
